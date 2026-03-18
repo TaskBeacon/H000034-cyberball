@@ -1,0 +1,210 @@
+subinfo_fields:
+  - name: subject_id
+    type: int
+    constraints:
+      min: 101
+      max: 999
+      digits: 3
+
+subinfo_mapping:
+  subject_id: Subject ID (3 digits)
+  Participant Information: Participant Information
+  registration_failed: Registration failed
+  registration_successful: Registration successful
+  invalid_input: "{field} is invalid"
+
+window:
+  size: [1280, 720]
+  units: pix
+  screen: 0
+  bg_color: black
+  fullscreen: true
+  fullscreen_lock_escape: true
+  monitor_width_cm: 35.5
+  monitor_distance_cm: 60
+
+task:
+  task_name: cyberball_preview
+  save_path: ./outputs/human
+  total_blocks: 2
+  total_trials: 60
+  trial_per_block: 30
+  conditions:
+    - inclusion
+    - exclusion
+  key_list:
+    - f
+    - j
+    - space
+  left_key: f
+  right_key: j
+  no_response_policy: random
+  seed_mode: same_across_sub
+  overall_seed: 2025
+  player_names:
+    participant: You
+    left: Player A
+    right: Player B
+  language: English
+  voice_name: en-US-AriaNeural
+  voice_enabled: false
+  input_mode: keyboard
+  hide_cursor: true
+  force_quit_enabled: true
+  force_quit_shortcut: ctrl+q
+
+timing:
+  avatar_decision_delay: [0.8, 1.2]
+  toss_animation_duration: 0.45
+  participant_timeout: 2.5
+  inter_toss_interval: 0.25
+
+stimuli:
+  instruction_text:
+    type: text
+    text: |
+      Cyberball Game
+
+      You are playing with two other players.
+
+      When the ball comes to you, choose where to toss:
+      F = left player, J = right player.
+
+      Press SPACE to begin.
+    color: white
+    height: 30
+    pos: [0, 40]
+
+  participant_node:
+    type: circle
+    radius: 58
+    pos: [0, -245]
+    fillColor: "#264fbf"
+    lineColor: white
+    lineWidth: 3
+
+  left_node:
+    type: circle
+    radius: 58
+    pos: [-335, 180]
+    fillColor: "#737373"
+    lineColor: white
+    lineWidth: 3
+
+  right_node:
+    type: circle
+    radius: 58
+    pos: [335, 180]
+    fillColor: "#737373"
+    lineColor: white
+    lineWidth: 3
+
+  participant_label:
+    type: text
+    text: You
+    color: white
+    height: 26
+    pos: [0, -245]
+
+  left_label:
+    type: text
+    text: Player A
+    color: white
+    height: 24
+    pos: [-335, 180]
+
+  right_label:
+    type: text
+    text: Player B
+    color: white
+    height: 24
+    pos: [335, 180]
+
+  ball:
+    type: circle
+    radius: 18
+    fillColor: "#ffd92f"
+    lineColor: black
+    lineWidth: 2
+    pos: [-335, 180]
+
+  avatar_wait_prompt:
+    type: text
+    text: "{holder_name} is deciding..."
+    color: "#d1d1d1"
+    height: 24
+    pos: [0, -40]
+
+  participant_prompt:
+    type: text
+    text: "Ball target: F = Player A, J = Player B"
+    color: "#f2f2f2"
+    height: 26
+    pos: [0, -45]
+
+  status_line:
+    type: text
+    text: "{condition_name} | Toss {toss_num}/{total_tosses}"
+    color: "#bfbfbf"
+    height: 22
+    pos: [0, 300]
+
+  block_break:
+    type: text
+    text: |
+      Block {block_num}/{total_blocks} complete
+
+      Condition: {condition_name}
+      Tosses received by participant: {participant_receives}
+      Tosses made by participant: {participant_turns}
+
+      Press SPACE to continue.
+    color: white
+    height: 26
+
+  good_bye:
+    type: text
+    text: |
+      Task complete.
+
+      Total tosses: {total_tosses}
+      Tosses received by participant: {participant_receives_total}
+      Tosses made by participant: {participant_turns_total}
+
+      Press SPACE to exit.
+    color: white
+    height: 28
+
+triggers:
+  map:
+    exp_onset: 1
+    exp_end: 2
+    block_onset: 10
+    block_end: 11
+    avatar_turn_onset: 20
+    participant_turn_onset: 30
+    participant_choice_left: 31
+    participant_choice_right: 32
+    participant_timeout: 33
+    toss_start_to_participant: 40
+    toss_start_to_left: 41
+    toss_start_to_right: 42
+    toss_end: 43
+
+  driver:
+    type: serial_url
+    url: loop://
+    baudrate: 115200
+
+  timing:
+    post_delay_ms: 1
+
+  policy:
+    strict: false
+
+controller:
+  inclusion_receive_prob: 0.33
+  exclusion_initial_receives: 2
+  random_seed: null
+  enable_logging: true
+
