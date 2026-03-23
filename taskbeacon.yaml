@@ -7,10 +7,9 @@ cognitive_domain:
   - social_cognition
   - social_exclusion
   - affective_processing
-maturity: prototype
+maturity: smoke_tested
 version:
   release_tag: "0.1.0"
 contracts:
   psyflow_web_taps: v0.1.0
 maintainer: []
-
